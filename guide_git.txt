@@ -1,0 +1,29 @@
+| Action                        | Commande                          | Exemple de syntaxe                           |
+| ----------------------------- | --------------------------------- | -------------------------------------------- |
+| Voir l’état du projet         | `git status`                      | `git status`                                 |
+
+| Voir les fichiers modifiés    | `git diff`                        | `git diff`                                   |
+
+| Ajouter 1 fichier             | `git add <fichier>`               | `git add main.py`                            |
+
+| Ajouter tous les fichiers     | `git add .`                       | `git add .`                                  |
+
+| Faire un commit               | `git commit -m "message"`         | `git commit -m "corrige le bug X"`           |
+
+| Envoyer sur GitHub            | `git push origin <branche>`       | `git push origin master`                     |
+
+| Récupérer depuis GitHub       | `git pull origin <branche>`       | `git pull origin master`                     |
+
+| Récupérer toutes les branches | `git fetch --all`                 | `git fetch --all`                            |
+
+| Voir les branches             | `git branch`                      | `git branch`                                 |
+
+| Changer de branche            | `git switch <branche>`            | `git switch master`                          |
+
+| Créer une branche locale      | `git switch -c <branche>`         | `git switch -c dev`                          |
+
+| Voir l’historique des commits | `git log --oneline`               | `git log --oneline`                          |
+
+| Voir les remotes              | `git remote -v`                   | `git remote -v`                              |
+
+| Changer l’URL du remote       | `git remote set-url origin <url>` | `git remote set-url origin git@github.com:…` |
