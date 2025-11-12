@@ -34,7 +34,7 @@ class Reseau:
         self.strat = strat
 
     def valider_reseau(self) -> bool:
-        # TODO
+        # TODO djijhfujvoihdsuvsd
         return False
 
     def valider_distribution(self, t: Terrain) -> bool:
