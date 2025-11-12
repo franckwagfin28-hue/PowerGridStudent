@@ -27,3 +27,29 @@
 | Voir les remotes              | `git remote -v`                   | `git remote -v`                              |
 
 | Changer l’URL du remote       | `git remote set-url origin <url>` | `git remote set-url origin git@github.com:…` |
+
+
+definir_entree :
+	pour self.noeuds.keys() : renvoi les clé du dictionnaire nœuds ( la clé c'est le rang(l'id) du nœud en 	question )
+ 	0:(3,3) 0 est la clé de 3:3 dans le dictionnaire nœud par exemple. nœud 0 au coordonnées 3,3 du terrain.
+	donc la fonction "definir_entree" permet de placer l'entrée du réseau sur un nœud existant. 
+
+
+ajouter_noeud :
+	actuellement la fonction ne vérifie que si la clé entrée est positive pas si c'est un entier et s'il 	n'existe pas encore dans le réseau.
+
+ajouter_arc : OK
+
+set_strategie : OK
+
+valider_reseau : à faire 
+	pour valider le réseau, on doit regarder si le deuxième nœud de l'arc est le premier nœud 	d'un ou de  plusieurs arc.
+valider_distribution : à faire 
+	pour valider la distribution, il faut que un client soit sur un nœud et que tout les nœud 	soit connecter entre eux.
+
+configurer : OK
+
+
+
+
+
