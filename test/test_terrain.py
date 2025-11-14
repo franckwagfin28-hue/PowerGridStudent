@@ -7,8 +7,26 @@ from Terrain import Terrain, Case
 class TestTerrain(unittest.TestCase):
 
     def test_chargement(self):
-        # TODO
-        self.fail()
+        t=Terrain()
+        t.charger("terrains/t1.txt")
+        hauteur=t.hauteur
+        largeur=t.largeur
+        nb_Vide=0
+        nb_Entre=0
+        nb_Client=0
+        nb_Obs=0
+        for l in range(largeur):
+            for h in range(hauteur):
+                if t[l][h] == Case.ENTREE :
+                    nb_Entre +=1
+                if t[l][h] == Case.CLIENT :
+                    nb_Client +=1
+                if t[l][h] == Case.VIDE :
+                    nb_Vide +=1
+                if t[l][h] == Case.OBSTACLE :
+                    nb_Obs +=1
+        if (hauteur*largeur != (nb_Vide+nb_Entre+nb_Client+nb_Obs)) or (nb_Entre<=0) or (nb_Client<=0): self.fail()
+
 
     def test_accesseur(self):
         t = Terrain()
