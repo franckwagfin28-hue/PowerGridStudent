@@ -91,14 +91,14 @@ class StrategieReseauAuto(StrategieReseau):
                 noeuds, save_nbx, taille = self.calcul_noeuf(terrain, client, client_test, save_nbx, taille, noeuds)                
             c=False
             ni=0
-            print(client_tests)
+            #print(client_tests)
             for ne in range(len(noeuds)) :
                 if not( tuple(noeuds[ne]) in noeuds_valides.values()):
                     noeuds_valides[ni+p]=tuple(noeuds[ne])
                     ni+=1
                 elif (tuple(noeuds[ne]) in noeuds_valides.values() ) :
                     c=True
-                    print("ok")
+                    #print("ok")
 
             point_valides=list(chain(point_valides,noeuds))
             p=len(noeuds_valides)
@@ -115,23 +115,23 @@ class StrategieReseauAuto(StrategieReseau):
                             d_save=d
                             save_noeud1=v
                             save_noeud2=noeuds[u]
-                print(save_noeud1,'     ',save_noeud2)
+                #print(save_noeud1,'     ',save_noeud2)
                 noeu, save_n, tail = self.calcul_noeuf(terrain, save_noeud1, save_noeud2, terrain.hauteur * terrain.largeur,terrain.hauteur * terrain.largeur, noeuds)
                 taille+=tail
                 save_nbx +=save_n
                 c=True 
-                print(noeu)  
+                #print(noeu)  
             for n in range(len(noeu)) :
                 noeuds_valides[n+p]=tuple(noeu[n])
             p=len(noeuds_valides)
-            print('-',noeu)
+            #print('-',noeu)
             noeuds=list(chain(noeuds,noeu))
                     
                 
             
-            print (f'le meilleur pour : {client} et il est connecté à E : {c}',)
-            print(noeuds)
-            print("\n")       
+            #print (f'le meilleur pour : {client} et il est connecté à E : {c}',)
+            #print(noeuds)
+            #print("\n")       
         for s in noeuds_valides.keys() :
             for e in range(s+1,len(noeuds_valides)) :
                 d = math.sqrt(
