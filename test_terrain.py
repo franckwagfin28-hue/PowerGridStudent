@@ -18,7 +18,6 @@ class TestTerrain(unittest.TestCase):
         with tempfile.NamedTemporaryFile("w", delete=False) as f:
             f.write(contenu)
             requirement = f.name
-
         # Charger le terrain
         t = Terrain()
         t.charger(requirement)

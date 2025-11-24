@@ -34,40 +34,35 @@ class Reseau:
         self.strat = strat
 
     def valider_reseau(self) -> bool:
-    
-        if self.noeud_entree == -1:
+    # 1. L’entrée doit être définie et exister
+        if self.noeud_entree not in self.noeuds.values():
             return False
+        
+
+           
+    def valider_reseau(self) -> bool:
+    # 1. L’entrée doit être définie et exister
         if self.noeud_entree not in self.noeuds:
             return False
-  
-        for (n1, n2) in self.arcs:
-            if n1 not in self.noeuds or n2 not in self.noeuds:
-                return False
-    # 3. Vérifier que tous les noeuds sont connectés 
-        a_visiter = [self.noeud_entree]
-        visites = set()
+    # 2. Tous les nœuds doivent être connectés à au moins un arc
 
-        while a_visiter:
-            n = a_visiter.pop()
-            if n in visites:
-                continue
-        visites.add(n)
+        for n in self.noeuds.keys():
+            connecte = False
 
-        # Ajouter les voisins accessibles
-        for (n1, n2) in self.arcs:
-            if n1 == n and n2 not in visites:
-                a_visiter.append(n2)
-            if n2 == n and n1 not in visites:
-                a_visiter.append(n1)
-        # 4. Comparer : tous les noeuds doivent être visités
-        return True if len(visites) == len(self.noeuds) else False
+            for (a, b) in self.arcs:
+                if n == a or n == b:
+                    connecte = True
+                    break
+        if not connecte:
+            return False
     
+
     def valider_distribution(self, t: Terrain) -> bool:
         # TODO
         return False
-    
     def configurer(self, t: Terrain):
         self.noeud_entree, self.noeuds, self.arcs  = self.strat.configurer(t)
+
 
 
     def afficher(self, t: Terrain) -> None:
@@ -97,7 +92,7 @@ class Reseau:
                 for x in range(min(x1, x2) + 1, max(x1, x2)):
                     if grille[x][y1] == " ":
                         grille[x][y1] = "|"
-    # --- Afficher la grille ---
+        # --- Afficher la grille ---
         for ligne in grille:
              print("".join(ligne))
                  
