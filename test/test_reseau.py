@@ -12,8 +12,8 @@ class TestReseau(unittest.TestCase):
         terrain = Terrain()
         terrain.hauteur=10
         terrain.largeur=15
-        reseau.ajouter_noeud(3,(5,5))
-        reseau.definir_entree(2,2)
+        reseau.ajouter_noeud(2,(5,5))
+        reseau.definir_entree(2)
         
 
     def test_ajout_noeud(self):
@@ -22,7 +22,9 @@ class TestReseau(unittest.TestCase):
 
     def test_ajout_arc(self):
         reseau = Reseau()
-        reseau.arc((2,3),(3,3))
+        reseau.ajouter_noeud(2,(5,5))
+        reseau.ajouter_noeud(1,(4,5))
+        reseau.ajouter_arc(1,2)
 
     def test_validation_correcte(self):
         r = Reseau()
