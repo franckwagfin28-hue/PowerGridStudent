@@ -26,7 +26,7 @@ class Reseau:
             n2 = n1
             n1 = tmp
         if n1 not in self.noeuds.keys() or n2 not in self.noeuds.keys():
-            return
+            return False
         if (n1, n2) not in self.arcs:
             self.arcs.append((n1, n2))
 
