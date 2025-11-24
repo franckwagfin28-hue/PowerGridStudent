@@ -19,7 +19,7 @@ class Reseau:
     def ajouter_noeud(self, n: int, coords: tuple[int, int]):
         if n >= 0:
             self.noeuds[n] = coords
-
+           
     def ajouter_arc(self, n1: int, n2: int) -> None:
         if n1 > n2:
             tmp = n2
@@ -34,19 +34,73 @@ class Reseau:
         self.strat = strat
 
     def valider_reseau(self) -> bool:
-        # TODO
-        return False
+    
+        if self.noeud_entree == -1:
+            return False
+        if self.noeud_entree not in self.noeuds:
+            return False
+  
+        for (n1, n2) in self.arcs:
+            if n1 not in self.noeuds or n2 not in self.noeuds:
+                return False
+    # 3. Vérifier que tous les noeuds sont connectés 
+        a_visiter = [self.noeud_entree]
+        visites = set()
 
+        while a_visiter:
+            n = a_visiter.pop()
+            if n in visites:
+                continue
+        visites.add(n)
+
+        # Ajouter les voisins accessibles
+        for (n1, n2) in self.arcs:
+            if n1 == n and n2 not in visites:
+                a_visiter.append(n2)
+            if n2 == n and n1 not in visites:
+                a_visiter.append(n1)
+        # 4. Comparer : tous les noeuds doivent être visités
+        return True if len(visites) == len(self.noeuds) else False
+    
     def valider_distribution(self, t: Terrain) -> bool:
         # TODO
         return False
-
+    
     def configurer(self, t: Terrain):
         self.noeud_entree, self.noeuds, self.arcs  = self.strat.configurer(t)
 
-    def afficher(self) -> None:
-        # TODO
-        pass
+
+    def afficher(self, t: Terrain) -> None:
+      # Création d'une grille vide
+        grille = [[" " for _ in range(t.largeur)] for _ in range(t.hauteur)]
+
+      # --- Placer les noeuds ---
+        for nid, (x, y) in self.noeuds.items():
+            if nid == self.noeud_entree:
+                grille[x][y] = "E"     # entrée du réseau
+            else:
+                grille[x][y] = "O"     # noeud normal
+
+    # --- Tracer les arcs ---
+        for n1, n2 in self.arcs:
+            (x1, y1) = self.noeuds[n1]
+            (x2, y2) = self.noeuds[n2]
+
+        # Arc horizontal
+            if x1 == x2:
+                for y in range(min(y1, y2) + 1, max(y1, y2)):
+                    if grille[x1][y] == " ":
+                        grille[x1][y] = "-"
+        
+        # Arc vertical
+            elif y1 == y2:
+                for x in range(min(x1, x2) + 1, max(x1, x2)):
+                    if grille[x][y1] == " ":
+                        grille[x][y1] = "|"
+    # --- Afficher la grille ---
+        for ligne in grille:
+             print("".join(ligne))
+                 
 
     def afficher_avec_terrain(self, t: Terrain) -> None:
         for ligne, l in enumerate(t.cases):

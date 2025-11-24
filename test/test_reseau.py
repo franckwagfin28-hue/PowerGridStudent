@@ -36,7 +36,7 @@ class TestReseau(unittest.TestCase):
         r.noeuds[4] = (1, 2)
         r.arcs.append((3, 4))
 
-        self.assertTrue(r.valider_reseau())
+        self.assertTrue(r.valider_reseau(False))
 
     def test_validation_incorrecte(self):
         r = Reseau()
