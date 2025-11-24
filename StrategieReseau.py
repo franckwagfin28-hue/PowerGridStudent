@@ -51,14 +51,14 @@ class StrategieReseauAuto(StrategieReseau):
                 taille = len(noeuds_ram)
                 save_nbx = nbr_x
                 noeuds = noeuds_ram
-
+        #print(noeuds)
         return noeuds, save_nbx, taille
     
     
     
     
     
-    def configurer(self, terrain: Terrain) -> tuple[int, dict[int, tuple[int, int]], list[int]]:
+    def configurer(self, terrain: Terrain) -> tuple[int, dict[int, tuple[int, int]], list[tuple[int,int]]]:
         noeuds_valides={}
         arc = []
         point=[]
@@ -83,25 +83,25 @@ class StrategieReseauAuto(StrategieReseau):
             for h in range(len(point)) :
                 if (point[h] != point[i]):
                     client_tests.append(point[h])
-            #print(client_tests)
-                #for h in range(len(point)) :
+
                     
-            #client_tests = list(dict.fromkeys(client_tests))
+            client_tests = list(dict.fromkeys(noeuds_valides.values()))
             for j in range(len(client_tests)) : 
                 client_test=client_tests[j]
                 noeuds, save_nbx, taille = self.calcul_noeuf(terrain, client, client_test, save_nbx, taille, noeuds)                
-            c=0
+            c=False
             ni=0
+            print(client_tests)
             for ne in range(len(noeuds)) :
                 if not( tuple(noeuds[ne]) in noeuds_valides.values()):
                     noeuds_valides[ni+p]=tuple(noeuds[ne])
                     ni+=1
-                if (noeuds[ne] in noeuds_valides.values() ) :
+                elif (tuple(noeuds[ne]) in noeuds_valides.values() ) :
                     c=True
-                if c != True : c=False
+                    print("ok")
+
             point_valides=list(chain(point_valides,noeuds))
             p=len(noeuds_valides)
-            #print(noeuds)
             d=0
             d_save=terrain.hauteur * terrain.largeur
             save_noeud1=[0,0]
@@ -111,24 +111,27 @@ class StrategieReseauAuto(StrategieReseau):
                 for u in range(len(noeuds)) :
                     for v in noeuds_valides.values() :
                         d=math.sqrt((v[0]-noeuds[u][0])**2 +(v[1]-noeuds[u][1])**2)
-                        if (d_save>d) :
+                        if (d_save>d) and (client != v ):
                             d_save=d
                             save_noeud1=v
                             save_noeud2=noeuds[u]
-                noeu, save_n, tail = calcul_noeuf(terrain, save_noeud1, save_noeud2, terrain.hauteur * terrain.largeur,terrain.hauteur * terrain.largeur, noeuds)
+                print(save_noeud1,'     ',save_noeud2)
+                noeu, save_n, tail = self.calcul_noeuf(terrain, save_noeud1, save_noeud2, terrain.hauteur * terrain.largeur,terrain.hauteur * terrain.largeur, noeuds)
                 taille+=tail
                 save_nbx +=save_n
-                c=True   
+                c=True 
+                print(noeu)  
             for n in range(len(noeu)) :
                 noeuds_valides[n+p]=tuple(noeu[n])
             p=len(noeuds_valides)
-            #print('-',noeu)
-                #noeuds=list(chain(noeuds,noeu))
+            print('-',noeu)
+            noeuds=list(chain(noeuds,noeu))
                     
                 
             
-            #print (f'le meilleur pour : {client} et il est connecté à E : {c}',)
-            #print("\n")       
+            print (f'le meilleur pour : {client} et il est connecté à E : {c}',)
+            print(noeuds)
+            print("\n")       
         for s in noeuds_valides.keys() :
             for e in range(s+1,len(noeuds_valides)) :
                 d = math.sqrt(
