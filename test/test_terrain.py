@@ -17,13 +17,13 @@ class TestTerrain(unittest.TestCase):
         nb_Obs=0
         for l in range(largeur):
             for h in range(hauteur):
-                if t[l][h] == Case.ENTREE :
+                if t[h][l] == Case.ENTREE :
                     nb_Entre +=1
-                if t[l][h] == Case.CLIENT :
+                if t[h][l] == Case.CLIENT :
                     nb_Client +=1
-                if t[l][h] == Case.VIDE :
+                if t[h][l] == Case.VIDE :
                     nb_Vide +=1
-                if t[l][h] == Case.OBSTACLE :
+                if t[h][l] == Case.OBSTACLE :
                     nb_Obs +=1
         if (hauteur*largeur != (nb_Vide+nb_Entre+nb_Client+nb_Obs)) or (nb_Entre<=0) or (nb_Client<=0): self.fail()
 
