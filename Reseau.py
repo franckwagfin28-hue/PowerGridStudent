@@ -26,7 +26,7 @@ class Reseau:
             n2 = n1
             n1 = tmp
         if n1 not in self.noeuds.keys() or n2 not in self.noeuds.keys():
-            return
+            return False
         if (n1, n2) not in self.arcs:
             self.arcs.append((n1, n2))
 
@@ -38,8 +38,13 @@ class Reseau:
         return False
 
     def valider_distribution(self, t: Terrain) -> bool:
-        # TODO
-        return False
+        clients=t.get_clients()
+        for  c in range(len(clients)) :
+            if not (clients[c] in self.noeuds.values()) :
+               return False
+        return True 
+
+        
 
     def configurer(self, t: Terrain):
         self.noeud_entree, self.noeuds, self.arcs  = self.strat.configurer(t)
