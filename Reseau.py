@@ -56,7 +56,6 @@ class Reseau:
         for  c in range(len(clients)) :
             if not (clients[c] in self.noeuds.values()) :
                return False
-        self.afficher(t)
         return True 
 
     def configurer(self, t: Terrain):
@@ -76,8 +75,12 @@ class Reseau:
             pos_affichage[nid] = (gx, gy)
             if nid == self.noeud_entree:
                 grille[gx][gy] = "E"  
+            elif t[x][y] == Case.CLIENT:
+                    grille[gx][gy] = "C"
+            elif t[x][y] == Case.OBSTACLE:
+                grille[gx][gy] = "T"
             else:
-                grille[gx][gy] = "O"   
+                grille[gx][gy] = "+"   
 
         for n1, n2 in self.arcs:
             x1, y1 = pos_affichage[n1]
