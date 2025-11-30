@@ -128,9 +128,11 @@ class StrategieReseauManuelle(StrategieReseau):
                             w=int(input("===Votre choix : "))
                             if w == 2 :
                                 add=True
-                        
-
-        return 1, noeuds_valides, arc
+        Entre_out=0               
+        for s in noeuds_valides.keys() :
+            if noeuds_valides[s] == t.get_entree() :
+                Entre_out=s  
+        return Entre_out, noeuds_valides, arc
 
 class StrategieReseauAuto(StrategieReseau):
     def calcul_noeuf(self,terrain, client, client_test, save_nbx, taille, noeuds):
@@ -261,5 +263,9 @@ class StrategieReseauAuto(StrategieReseau):
                         )
                 if d==1 : 
                     arc.append((s,e))
-        return 1,noeuds_valides, arc
+        Entre_out=0
+        for s in noeuds_valides.keys() :
+            if noeuds_valides[s] == terrain.get_entree() :
+                Entre_out=s
+        return Entre_out,noeuds_valides, arc
 
