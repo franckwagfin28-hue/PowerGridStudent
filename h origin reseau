@@ -1,0 +1,30 @@
+*   [33m7f7e504[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mreseau[m[33m, [m[1;31morigin/reseau[m[33m)[m Merge branch 'reseau' of https://github.com/franckwagfin28-hue/PowerGridStudent into reseau
+[31m|[m[32m\[m  
+[31m|[m * [33m93a9152[m mise à jours de la fonction de test de l'arc
+[31m|[m * [33mef0bb82[m rien
+[31m|[m *   [33m11bb0ba[m rien
+[31m|[m [33m|[m[34m\[m  
+[31m|[m [33m|[m * [33maa878a4[m mise a jour de la fonction test arc à test def entree
+[31m|[m [33m|[m * [33m295c4a5[m mise a jour des instruction
+[31m|[m [33m|[m * [33mb522038[m Aide pour les commande git
+[31m|[m [33m|[m * [33me089733[m une modification
+[31m|[m * [34m|[m [33mddfd7fa[m realisation de la fonction valider_distribution 1
+[31m|[m * [34m|[m [33m9b79bde[m test de branche
+[31m|[m [34m|[m[34m/[m  
+* [34m|[m [33m8fa942c[m modif
+* [34m|[m [33mac32b20[m modif
+* [34m|[m [33m7a672ad[m Reseau
+[34m|[m[34m/[m  
+* [33m73570aa[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m précision
+* [33m565dce6[m précisions
+* [33md2248fa[m précisions
+* [33m0db4987[m précisions
+* [33m6265b3b[m précisions
+* [33m7ed2a34[m précision
+* [33maa42506[m précisions
+* [33m7ab8657[m correction ordre
+* [33m6227a96[m précision
+* [33m738bb4d[m correction
+* [33m97d4d4d[m corrections
+* [33m4586a51[m figure oubliée
+* [33m0f2536e[m initial commit
