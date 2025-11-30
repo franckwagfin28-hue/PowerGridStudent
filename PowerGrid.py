@@ -1,18 +1,16 @@
 
-from Terrain import Terrain
+from Terrain import Terrain,Case
 from Reseau import Reseau
-
 from StrategieReseau import StrategieReseauManuelle
+
 
 if __name__ == "__main__":
 
     reseau = Reseau()
-
     terrain = Terrain()
-    terrain.charger("terrains/t1.txt")
+    terrain.charger("terrains/t2.txt")
     print("Terrain chargé :")
     terrain.afficher()
-
     print("======= Configuration Automatique")
     reseau.configurer(terrain)
     if reseau.valider_reseau() and reseau.valider_distribution(terrain):
