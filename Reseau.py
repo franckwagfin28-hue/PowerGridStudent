@@ -58,19 +58,18 @@ class Reseau:
         self.noeud_entree, self.noeuds, self.arcs  = self.strat.configurer(t)
 
 
-
     def afficher(self, t: Terrain) -> None:
-      # Création d'une grille vide
+        # Création d'une grille vide
         grille = [[" " for _ in range(t.largeur)] for _ in range(t.hauteur)]
 
-      # --- Placer les noeuds ---
+        # --- Placer les noeuds ---
         for nid, (x, y) in self.noeuds.items():
             if nid == self.noeud_entree:
                 grille[x][y] = "E"     # entrée du réseau
             else:
                 grille[x][y] = "O"     # noeud normal
 
-    # --- Tracer les arcs ---
+        # --- Tracer les arcs ---
         for n1, n2 in self.arcs:
             (x1, y1) = self.noeuds[n1]
             (x2, y2) = self.noeuds[n2]
@@ -88,8 +87,7 @@ class Reseau:
                         grille[x][y1] = "|"
         # --- Afficher la grille ---
         for ligne in grille:
-             print("".join(ligne)) 
-                 
+             print("".join(ligne))                  
 
     def afficher_avec_terrain(self, t: Terrain) -> None:
         for ligne, l in enumerate(t.cases):
