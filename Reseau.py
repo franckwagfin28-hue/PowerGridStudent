@@ -32,20 +32,13 @@ class Reseau:
 
     def set_strategie(self, strat: StrategieReseau):
         self.strat = strat
-
-    def valider_reseau(self) -> bool:
-    # 1. L’entrée doit être définie et exister
-        if self.noeud_entree not in self.noeuds.values():
-            return False
-        
-
-           
+               
     def valider_reseau(self) -> bool:
     # 1. L’entrée doit être définie et exister
         if self.noeud_entree not in self.noeuds:
             return False
+        
     # 2. Tous les nœuds doivent être connectés à au moins un arc
-
         for n in self.noeuds.keys():
             connecte = False
 
@@ -94,7 +87,7 @@ class Reseau:
                         grille[x][y1] = "|"
         # --- Afficher la grille ---
         for ligne in grille:
-             print("".join(ligne))
+             print("".join(ligne)) 
                  
 
     def afficher_avec_terrain(self, t: Terrain) -> None:
