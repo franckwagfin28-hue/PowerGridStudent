@@ -46,8 +46,9 @@ class Reseau:
                 if n == a or n == b:
                     connecte = True
                     break
-        if not connecte:
-            return False
+            if not connecte:
+                return False
+        return True
     
 
     def valider_distribution(self, t: Terrain) -> bool:
@@ -55,6 +56,7 @@ class Reseau:
         for  c in range(len(clients)) :
             if not (clients[c] in self.noeuds.values()) :
                return False
+        self.afficher(t)
         return True 
 
     def configurer(self, t: Terrain):
@@ -63,35 +65,36 @@ class Reseau:
 
 
     def afficher(self, t: Terrain) -> None:
-      # Création d'une grille vide
-        grille = [[" " for _ in range(t.largeur)] for _ in range(t.hauteur)]
+        h, w = t.hauteur, t.largeur
 
-      # --- Placer les noeuds ---
+        H, W = h * 2 - 1, w * 2 - 1
+        grille = [[" " for _ in range(W)] for _ in range(H)]
+        pos_affichage = {}
         for nid, (x, y) in self.noeuds.items():
+            gx = x * 2      
+            gy = y * 2      
+            pos_affichage[nid] = (gx, gy)
             if nid == self.noeud_entree:
-                grille[x][y] = "E"     # entrée du réseau
+                grille[gx][gy] = "E"  
             else:
-                grille[x][y] = "O"     # noeud normal
+                grille[gx][gy] = "O"   
 
-    # --- Tracer les arcs ---
         for n1, n2 in self.arcs:
-            (x1, y1) = self.noeuds[n1]
-            (x2, y2) = self.noeuds[n2]
+            x1, y1 = pos_affichage[n1]
+            x2, y2 = pos_affichage[n2]
 
-        # Arc horizontal
             if x1 == x2:
                 for y in range(min(y1, y2) + 1, max(y1, y2)):
                     if grille[x1][y] == " ":
                         grille[x1][y] = "-"
-        
-        # Arc vertical
             elif y1 == y2:
                 for x in range(min(x1, x2) + 1, max(x1, x2)):
                     if grille[x][y1] == " ":
                         grille[x][y1] = "|"
-        # --- Afficher la grille ---
+
         for ligne in grille:
-             print("".join(ligne)) 
+            print("".join(ligne))
+
                  
 
     def afficher_avec_terrain(self, t: Terrain) -> None:
