@@ -7,9 +7,130 @@ class StrategieReseau:
         return -1, {}, []
 
 class StrategieReseauManuelle(StrategieReseau):
+    def ajouter_arc_automatique(self, noeuds_valides, num_noeud):
+        arc=[]
+        for n in noeuds_valides.keys() :
+            if n != num_noeud :
+                d = math.sqrt(
+                    (noeuds_valides[n][0] - noeuds_valides[num_noeud][0])**2 +
+                    (noeuds_valides[n][1] - noeuds_valides[num_noeud][1])**2
+                    )
+                if d==1 : 
+                    arc.append((n,num_noeud))
+        return arc
+        
     def configurer(self, t: Terrain) -> tuple[int, dict[int, tuple[int, int]], list[int]]:
-        # TODO
-        return -1, {}, []
+        noeuds_valides={}
+        arc = []
+        noeuds_valides[0]=t.get_entree()
+        select=0
+        num_noeud=1
+        while select != 3  :
+            print("============================================================================")
+            print("============================================================================")
+            print("==========Noeuds disponibles====================")
+            print(noeuds_valides)
+            print("Affichege des noeud sur le terrain :")
+            for ligne, l in enumerate(t.cases):
+                for colonne, c in enumerate(l):
+                    if (ligne, colonne) in noeuds_valides.values():
+                        print(f"v", end="")
+                    else:
+                        if c == Case.OBSTACLE:
+                            print("X", end="")
+                        elif c == Case.CLIENT:
+                            print("C", end="")
+                        elif c == Case.VIDE:
+                            print("~", end="")
+                        elif c == Case.ENTREE:
+                            print("E", end="")
+                        else:
+                            print(" ", end="")
+                print()
+            print("============================================================================")
+            print("==========Arcs disponibles====================")
+            print(arc)
+            print("============================================================================")
+            print("=== 1-Ajouter un noeud \n===2-Ajouter un arc \n=== 3-'Exit' pour terminer : ")
+            select=int(input("===Votre choix : "))
+
+            if select == 1 :
+                print("===Ajouter une serie de noeuds automatiquement ? \n=== 1-Oui \n=== 2-Non")
+                auto=int(input("===Votre choix : "))
+                if auto == 1 :
+                    print("===En ligne ou en colonne ? \n=== 1-Ligne \n=== 2-Colonne")
+                    ligne_colonne=int(input("===Votre choix : "))
+                    if ligne_colonne == 1 :
+                        x=int(input("===Coordonnée Colone du noeud de départ : "))
+                        y_start=int(input("===Coordonnée Ligne du noeud de départ : "))
+                        y_stop=int(input("===Coordonnée Ligne du noeud de fin : "))
+                        if y_start > y_stop :
+                            q=y_start
+                            y_start=y_stop
+                            y_stop=q
+                        for y in range(y_start, y_stop+1) :
+                            noeuds_valides[num_noeud]=(y,x)
+                            new_arc=self.ajouter_arc_automatique(noeuds_valides, num_noeud)
+                            if len(new_arc)>0 :
+                                for a in range(len(new_arc)) :
+                                    arc.append(new_arc[a]) 
+                            num_noeud+=1
+                        print(f"===Noeuds de ({y_start},{x}) à ({y_stop},{x}) ajoutés avec succès.")
+                    elif ligne_colonne == 2 :
+                        y=int(input("===Coordonnée Ligne du noeud de départ : "))
+                        x_start=int(input("===Coordonnée Colone du noeud de départ : "))
+                        x_stop=int(input("===Coordonnée Colone du noeud de fin : "))
+                        if x_start > x_stop :
+                            q=x_start
+                            x_start=x_stop
+                            x_stop=q
+                        for x in range(x_start, x_stop+1) :
+                            noeuds_valides[num_noeud]=(y,x)
+                            new_arc=self.ajouter_arc_automatique(noeuds_valides, num_noeud)
+                            if len(new_arc)>0 :
+                                for a in range(len(new_arc)) :
+                                    arc.append(new_arc[a])                       
+                            num_noeud+=1
+                        print(f"===Noeuds de ({y},{x_start}) à ({y},{x_stop}) ajoutés avec succès.")
+                        
+                elif auto == 2 :
+                    x=int(input("===Coordonnée Colone du noeud : "))
+                    y=int(input("===Coordonnée Ligne du noeud : "))
+                    noeuds_valides[num_noeud]=(y,x)
+                    print(f"===Noeud {num_noeud}:({y,x}) ajouté avec succès.")
+                    for n in noeuds_valides.keys() :
+                        if n != num_noeud :
+                            d = math.sqrt(
+                                (noeuds_valides[n][0] - noeuds_valides[num_noeud][0])**2 +
+                                (noeuds_valides[n][1] - noeuds_valides[num_noeud][1])**2
+                                    )
+                            if d==1 : 
+                                print(f"===Voulez-vous ajouter l'arc ({n},{num_noeud}) ? \n=== 1-Oui \n=== 2-Non")
+                                w=int(input("===Votre choix : "))
+                                if w == 1 :
+                                    arc.append((n,num_noeud))
+                                    print(f"===Arc ({n},{num_noeud}) ajouté avec succès.")
+                    num_noeud+=1
+            elif select == 2 :
+                add=False
+                while add==False :
+                    start=int(input("===Numéro du noeud de départ : "))
+                    stop=int(input("===Numéro du noeud de fin : "))
+                    if start in noeuds_valides.keys() and stop in noeuds_valides.keys() :
+                        est_proche=math.sqrt((noeuds_valides[start][0]-noeuds_valides[stop][0])**2 +(noeuds_valides[start][1]-noeuds_valides[stop][1])**2)
+                        if est_proche == 1 :
+                            arc.append((start,stop))
+                            print(f"===Arc ({start},{stop}) ajouté avec succès.")
+                            add=True
+                        else :
+                            print("===Les noeuds ne sont pas adjacents, arc non ajouté.")
+                            print("===1-Veuillez réessayer \n===2-Quitter sans ajouter d'arc")
+                            w=int(input("===Votre choix : "))
+                            if w == 2 :
+                                add=True
+                        
+
+        return 1, noeuds_valides, arc
 
 class StrategieReseauAuto(StrategieReseau):
     def calcul_noeuf(self,terrain, client, client_test, save_nbx, taille, noeuds):
